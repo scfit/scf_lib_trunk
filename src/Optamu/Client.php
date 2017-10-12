@@ -13,7 +13,8 @@ use ScfLib\Optamu\Storage\StorageInterface;
 class Client
 {
 
-    private $url = 'http://localhost/app_dev.php';
+    //private $url = 'http://localhost/app_dev.php';
+
     //private $url = 'https://tracker.supplychainfactory.com';
 
     /**
@@ -21,8 +22,9 @@ class Client
      */
     private $storage;
 
-    public function __construct(StorageInterface $storage)
+    public function __construct($url, StorageInterface $storage)
     {
+        $this->url = $url;
         $this->storage = $storage;
     }
 
@@ -30,6 +32,7 @@ class Client
     {
         $url = $this->url.'/login_check';
         $ch = curl_init($url);
+
         curl_setopt($ch,CURLOPT_POST,true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
         curl_setopt($ch,CURLOPT_POSTFIELDS,http_build_query([
@@ -38,6 +41,7 @@ class Client
         ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
+
         curl_close ($ch);
 
         if( $response ) {

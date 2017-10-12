@@ -22,8 +22,11 @@ class ClientTest extends TestCase
 
     public function testList()
     {
+        $url = 'http://localhost/app_dev.php';
+
         $storage = new \ScfLib\Optamu\Storage\File(__DIR__.'/../assets/optamu_storage.json');
-        $client = new \ScfLib\Optamu\Client($storage);
+        $client = new \ScfLib\Optamu\Client($url,$storage);
+
         if( $client->authenticate('mtheuerzeit','555Nase') ) {
             $resource = new  \ScfLib\Optamu\Resource($client);
 
