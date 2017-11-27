@@ -90,6 +90,12 @@ class Offer
      */
     protected $offerWaypoints;
 
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Order", mappedBy="offer")
+     */
+    protected $order;
+
     public function __construct()
     {
         $this->offerCosts = new ArrayCollection();

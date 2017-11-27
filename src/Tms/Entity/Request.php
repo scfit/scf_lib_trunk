@@ -64,7 +64,7 @@ class Request
     protected $requestVehicles;
 
     /**
-     * @ORM\OneToMany(targetEntity="RequestPackage",mappedBy="request",cascade={"persist"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Package",mappedBy="request",cascade={"persist"},orphanRemoval=true)
      */
     protected $packages;
 

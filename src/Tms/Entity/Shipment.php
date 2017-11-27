@@ -64,10 +64,150 @@ class Shipment
      */
     protected $transports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ShipmentWaypoint",mappedBy="shipment",cascade={"persist"},orphanRemoval=true)
+     */
+    protected $shipmentWaypoints;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
         $this->transports = new ArrayCollection();
+        $this->shipmentWaypoints = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return Shipment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCreatedByPersonId()
+    {
+        return $this->createdByPersonId;
+    }
+
+    /**
+     * @param int $createdByPersonId
+     * @return Shipment
+     */
+    public function setCreatedByPersonId($createdByPersonId)
+    {
+        $this->createdByPersonId = $createdByPersonId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShipmentNumber()
+    {
+        return $this->shipmentNumber;
+    }
+
+    /**
+     * @param string $shipmentNumber
+     * @return Shipment
+     */
+    public function setShipmentNumber($shipmentNumber)
+    {
+        $this->shipmentNumber = $shipmentNumber;
+        return $this;
+    }
+
+    /**
+     * @return EntityAddress
+     */
+    public function getManagerEntityAddress()
+    {
+        return $this->managerEntityAddress;
+    }
+
+    /**
+     * @param EntityAddress $managerEntityAddress
+     * @return Shipment
+     */
+    public function setManagerEntityAddress($managerEntityAddress)
+    {
+        $this->managerEntityAddress = $managerEntityAddress;
+        return $this;
+    }
+
+    /**
+     * @return EntityAddress
+     */
+    public function getOperatorEntityAddress()
+    {
+        return $this->operatorEntityAddress;
+    }
+
+    /**
+     * @param EntityAddress $operatorEntityAddress
+     * @return Shipment
+     */
+    public function setOperatorEntityAddress($operatorEntityAddress)
+    {
+        $this->operatorEntityAddress = $operatorEntityAddress;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransports()
+    {
+        return $this->transports;
+    }
+
+    /**
+     * @param mixed $transports
+     * @return Shipment
+     */
+    public function setTransports($transports)
+    {
+        $this->transports = $transports;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShipmentWaypoints()
+    {
+        return $this->shipmentWaypoints;
+    }
+
+    /**
+     * @param mixed $shipmentWaypoints
+     * @return Shipment
+     */
+    public function setShipmentWaypoints($shipmentWaypoints)
+    {
+        $this->shipmentWaypoints = $shipmentWaypoints;
+        return $this;
     }
 
     /**
@@ -90,6 +230,30 @@ class Shipment
         if( $this->transports->contains($transport) ) {
             $this->transports->remove($transport);
             $transport->setShipment(null);
+        }
+        return $this;
+    }
+
+    /**
+     * @param ShipmentWaypoint $shipmentWaypoint
+     * @return $this
+     */
+    public function addShipmentWaypoint(Transport $shipmentWaypoint) {
+        if( $this->shipmentWaypoints->contains($shipmentWaypoint) === false) {
+            $this->shipmentWaypoints->add($shipmentWaypoint);
+            $shipmentWaypoint->setShipment($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @param ShipmentWaypoint $shipmentWaypoint
+     * @return $this
+     */
+    public function removeShipmentWaypoint(Transport $shipmentWaypoint) {
+        if( $this->shipmentWaypoints->contains($shipmentWaypoint) ) {
+            $this->shipmentWaypoints->remove($shipmentWaypoint);
+            $shipmentWaypoint->setShipment(null);
         }
         return $this;
     }

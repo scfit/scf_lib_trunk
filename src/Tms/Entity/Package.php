@@ -27,7 +27,7 @@ class Package
 
     /**
      * @var Request
-     * @ORM\ManyToOne(targetEntity="Request")
+     * @ORM\ManyToOne(targetEntity="Request", inversedBy="packages")
      * @ORM\JoinColumn(name="tms_request_id",referencedColumnName="id")
      */
     protected $request;
