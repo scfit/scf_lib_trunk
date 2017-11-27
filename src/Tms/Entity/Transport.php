@@ -6,7 +6,7 @@
  * Time: 16:53
  */
 
-namespace Tms\Entity;
+namespace ScfLib\Tms\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;

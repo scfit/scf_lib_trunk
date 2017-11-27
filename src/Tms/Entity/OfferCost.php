@@ -6,7 +6,7 @@
  * Time: 14:56
  */
 
-namespace Tms\Entity;
+namespace ScfLib\Tms\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

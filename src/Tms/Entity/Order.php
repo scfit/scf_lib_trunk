@@ -6,7 +6,7 @@
  * Time: 16:16
  */
 
-namespace Tms\Entity;
+namespace ScfLib\Tms\Entity;
 
 /**
  * Class Order

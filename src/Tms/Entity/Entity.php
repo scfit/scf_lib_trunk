@@ -6,7 +6,7 @@
  * Time: 15:36
  */
 
-namespace Tms\Entity;
+namespace ScfLib\Tms\Entity;
 
 /**
  * Class Entity
