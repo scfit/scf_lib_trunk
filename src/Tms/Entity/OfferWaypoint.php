@@ -27,7 +27,7 @@ class OfferWaypoint
 
     /**
      * @var Offer
-     * @ORM\ManyToOne(targetEntity="Offer")
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="offerWaypoints")
      * @ORM\JoinColumn(name="tms_offer_id",referencedColumnName="id")
      */
     protected $offer;
