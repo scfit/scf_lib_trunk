@@ -8,6 +8,8 @@
 
 namespace ScfLib\Tms\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Entity
  * @ORM\Entity

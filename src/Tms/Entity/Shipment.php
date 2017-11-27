@@ -14,9 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Class Shipment
  * @ORM\Entity
- * @ORM\Table(name="tms_shipment",uniqueConstrains={
- *     @ORM\UniqueConstraint(name="un_tms_offer_offer_number",columns={"manager_entity_address_id","shipment_number"})
- * })
+ * @ORM\Table(name="tms_shipment")
  */
 class Shipment
 {
