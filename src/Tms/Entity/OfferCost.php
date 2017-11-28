@@ -47,6 +47,25 @@ class OfferCost
     protected $amount;
 
     /**
+     * @var \Currency
+     * @ORM\ManyToOne(targetEntity="Currency")
+     * @ORM\JoinColumn(name="exchange_currency_id",referencedColumnName="id",nullable=true)
+     */
+    protected $exchangeCurrency;
+
+    /**
+     * @var float
+     * @ORM\Column(type="decimal",name="amount", precision=30, scale=6, nullable=true)
+     */
+    protected $exchangeRate;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(type="date",name="exchange_rate_date", nullable=true)
+     */
+    protected $exchangeRateDate;
+
+    /**
      * @return int
      */
     public function getId()
@@ -115,6 +134,60 @@ class OfferCost
     public function setAmount($amount)
     {
         $this->amount = $amount;
+        return $this;
+    }
+
+    /**
+     * @return \Currency
+     */
+    public function getExchangeCurrency()
+    {
+        return $this->exchangeCurrency;
+    }
+
+    /**
+     * @param \Currency $exchangeCurrency
+     * @return OfferCost
+     */
+    public function setExchangeCurrency($exchangeCurrency)
+    {
+        $this->exchangeCurrency = $exchangeCurrency;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getExchangeRate()
+    {
+        return $this->exchangeRate;
+    }
+
+    /**
+     * @param float $exchangeRate
+     * @return OfferCost
+     */
+    public function setExchangeRate($exchangeRate)
+    {
+        $this->exchangeRate = $exchangeRate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getExchangeRateDate()
+    {
+        return $this->exchangeRateDate;
+    }
+
+    /**
+     * @param \DateTime $exchangeRateDate
+     * @return OfferCost
+     */
+    public function setExchangeRateDate($exchangeRateDate)
+    {
+        $this->exchangeRateDate = $exchangeRateDate;
         return $this;
     }
 }

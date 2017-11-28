@@ -49,6 +49,19 @@ class Transport
     protected $endWaypoint;
 
     /**
+     * @var VehicleType
+     * @ORM\ManyToOne(targetEntity="VehicleType")
+     * @ORM\JoinColumn(name="vehicle_type_id",referencedColumnName="id")
+     */
+    protected $vehicleType;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string",name="vehicle_number",nullable=true)
+     */
+    protected $vehicleNumber;
+
+    /**
      * @var Order
      * @ORM\ManyToOne(targetEntity="Order")
      * @ORM\JoinColumn(name="tms_order_id",referencedColumnName="id")
@@ -130,6 +143,42 @@ class Transport
     public function setEndWaypoint($endWaypoint)
     {
         $this->endWaypoint = $endWaypoint;
+        return $this;
+    }
+
+    /**
+     * @return VehicleType
+     */
+    public function getVehicleType()
+    {
+        return $this->vehicleType;
+    }
+
+    /**
+     * @param VehicleType $vehicleType
+     * @return Transport
+     */
+    public function setVehicleType($vehicleType)
+    {
+        $this->vehicleType = $vehicleType;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVehicleNumber()
+    {
+        return $this->vehicleNumber;
+    }
+
+    /**
+     * @param string $vehicleNumber
+     * @return Transport
+     */
+    public function setVehicleNumber($vehicleNumber)
+    {
+        $this->vehicleNumber = $vehicleNumber;
         return $this;
     }
 

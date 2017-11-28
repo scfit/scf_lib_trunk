@@ -54,6 +54,19 @@ class Request
     protected $recipientEntityAddress;
 
     /**
+     * @var \Currency
+     * @ORM\ManyToOne(targetEntity="Currency")
+     * @ORM\JoinColumn(name="declared_value_currency_id",referencedColumnName="id",nullable=true)
+     */
+    protected $declaredValueCurrency;
+
+    /**
+     * @var float
+     * @ORM\Column(type="decimal",name="declared_value", precision=30, scale=2, nullable=true)
+     */
+    protected $declaredValue;
+
+    /**
      * @ORM\OneToMany(targetEntity="RequestWaypoint",mappedBy="request",cascade={"persist"},orphanRemoval=true)
      */
     protected $requestWaypoints;
@@ -195,6 +208,42 @@ class Request
     public function setRecipientEntityAddress($recipientEntityAddress)
     {
         $this->recipientEntityAddress = $recipientEntityAddress;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeclaredValueCurrency()
+    {
+        return $this->declaredValueCurrency;
+    }
+
+    /**
+     * @param mixed $declaredValueCurrency
+     * @return Request
+     */
+    public function setDeclaredValueCurrency($declaredValueCurrency)
+    {
+        $this->declaredValueCurrency = $declaredValueCurrency;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeclaredValue()
+    {
+        return $this->declaredValue;
+    }
+
+    /**
+     * @param mixed $declaredValue
+     * @return Request
+     */
+    public function setDeclaredValue($declaredValue)
+    {
+        $this->declaredValue = $declaredValue;
         return $this;
     }
 

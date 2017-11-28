@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="tms_offer_vehicle",indexes={
  *     @ORM\Index(name="idx_tms_offer_vehicle_vehicle_type_id", columns={"vehicle_type_id"}),
  * },uniqueConstraints={
- *     @ORM\UniqueConstraint(name="un_tms_offer_vehicle_vehicle_number",columns={"tms_offer_id","vehicle_number"})
+ *     @ORM\UniqueConstraint(name="un_tms_offer",columns={"tms_offer_id","vehicle_type_id"})
  * })
  */
 class OfferVehicle
@@ -32,17 +32,17 @@ class OfferVehicle
     protected $offer;
 
     /**
+     * @var integer
+     * @ORM\Column(type="integer",name="quantity", nullable=false)
+     */
+    protected $quantity;
+
+    /**
      * @var VehicleType
      * @ORM\ManyToOne(targetEntity="VehicleType")
      * @ORM\JoinColumn(name="vehicle_type_id",referencedColumnName="id")
      */
     protected $vehicleType;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", name="vehicle_number", nullable=true)
-     */
-    protected $vehicleNumber;
 
     /**
      * @return int
@@ -99,20 +99,20 @@ class OfferVehicle
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getVehicleNumber()
+    public function getQuantity()
     {
-        return $this->vehicleNumber;
+        return $this->quantity;
     }
 
     /**
-     * @param string $vehicleNumber
+     * @param int $quantity
      * @return OfferVehicle
      */
-    public function setVehicleNumber($vehicleNumber)
+    public function setQuantity($quantity)
     {
-        $this->vehicleNumber = $vehicleNumber;
+        $this->quantity = $quantity;
         return $this;
     }
 }

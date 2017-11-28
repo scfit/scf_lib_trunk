@@ -3,6 +3,7 @@
 namespace ScfLib\Tms\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Package
@@ -136,18 +137,38 @@ class Package
     protected $packagingType;
 
     /**
-     * @var RequestWaypoint
-     * @ORM\ManyToOne(targetEntity="RequestWaypoint")
-     * @ORM\JoinColumn(name="loading_tms_request_waypoint_id",referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="Package", mappedBy="root")
      */
-    protected $loadingWaypoint;
+    private $children;
 
     /**
-     * @var RequestWaypoint
-     * @ORM\ManyToOne(targetEntity="RequestWaypoint")
-     * @ORM\JoinColumn(name="unloading_tms_request_waypoint_id",referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Package", inversedBy="children")
+     * @ORM\JoinColumn(name="root_id", referencedColumnName="id")
      */
-    protected $unloadingWaypoint;
+    private $root;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer",name="lft", nullable=true)
+     */
+    protected $left;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer",name="rgt", nullable=true)
+     */
+    protected $right;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer",name="level", nullable=true)
+     */
+    protected $level;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -482,38 +503,110 @@ class Package
     }
 
     /**
-     * @return RequestWaypoint
+     * @return mixed
      */
-    public function getLoadingWaypoint()
+    public function getChildren()
     {
-        return $this->loadingWaypoint;
+        return $this->children;
     }
 
     /**
-     * @param RequestWaypoint $loadingWaypoint
+     * @param mixed $children
      * @return Package
      */
-    public function setLoadingWaypoint($loadingWaypoint)
+    public function setChildren($children)
     {
-        $this->loadingWaypoint = $loadingWaypoint;
+        $this->children = $children;
         return $this;
     }
 
     /**
-     * @return RequestWaypoint
+     * @return mixed
      */
-    public function getUnloadingWaypoint()
+    public function getRoot()
     {
-        return $this->unloadingWaypoint;
+        return $this->root;
     }
 
     /**
-     * @param RequestWaypoint $unloadingWaypoint
+     * @param mixed $root
      * @return Package
      */
-    public function setUnloadingWaypoint($unloadingWaypoint)
+    public function setRoot($root)
     {
-        $this->unloadingWaypoint = $unloadingWaypoint;
+        $this->root = $root;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLeft()
+    {
+        return $this->left;
+    }
+
+    /**
+     * @param int $left
+     * @return Package
+     */
+    public function setLeft($left)
+    {
+        $this->left = $left;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRight()
+    {
+        return $this->right;
+    }
+
+    /**
+     * @param int $right
+     * @return Package
+     */
+    public function setRight($right)
+    {
+        $this->right = $right;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param int $level
+     * @return Package
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+        return $this;
+    }
+
+    public function addChild(Package $child)
+    {
+        if( $this->children->contains($child) === false ) {
+            $this->children->add($child);
+            $child->setRoot($this);
+        }
+        return $this;
+    }
+
+    public function removeChild(Package $child)
+    {
+        if( $this->children->contains($child) ) {
+            $this->children->remove($child);
+            $child->setRoot(null);
+        }
         return $this;
     }
 }

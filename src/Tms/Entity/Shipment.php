@@ -60,6 +60,20 @@ class Shipment
     protected $operatorEntityAddress;
 
     /**
+     * @var ShipmentType
+     * @ORM\ManyToOne(targetEntity="ShipmentType")
+     * @ORM\JoinColumn(name="tms_shipment_type_id",referencedColumnName="id")
+     */
+    protected $shipmentType;
+
+    /**
+     * @var ShipmentMode
+     * @ORM\ManyToOne(targetEntity="ShipmentMode")
+     * @ORM\JoinColumn(name="tms_shipment_mode_id",referencedColumnName="id")
+     */
+    protected $shipmentMode;
+
+    /**
      * @ORM\OneToMany(targetEntity="Transport",mappedBy="shipment",cascade={"persist"},orphanRemoval=true)
      */
     protected $transports;
@@ -171,6 +185,42 @@ class Shipment
     public function setOperatorEntityAddress($operatorEntityAddress)
     {
         $this->operatorEntityAddress = $operatorEntityAddress;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShipmentType()
+    {
+        return $this->shipmentType;
+    }
+
+    /**
+     * @param mixed $shipmentType
+     * @return Shipment
+     */
+    public function setShipmentType($shipmentType)
+    {
+        $this->shipmentType = $shipmentType;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShipmentMode()
+    {
+        return $this->shipmentMode;
+    }
+
+    /**
+     * @param mixed $shipmentMode
+     * @return Shipment
+     */
+    public function setShipmentMode($shipmentMode)
+    {
+        $this->shipmentMode = $shipmentMode;
         return $this;
     }
 

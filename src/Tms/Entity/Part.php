@@ -79,6 +79,24 @@ class Part
     protected $unNumber;
 
     /**
+     * @var string
+     * @ORM\Column(type="decimal", name="un_net_weight", precision=30, scale=2, nullable=true)
+     */
+    protected $unNetWeight;
+
+    /**
+     * @var string
+     * @ORM\Column(type="decimal", name="min_temperature", precision=30, scale=2, nullable=true)
+     */
+    protected $minTemperature;
+
+    /**
+     * @var string
+     * @ORM\Column(type="decimal", name="max_temperature", precision=30, scale=2, nullable=true)
+     */
+    protected $maxTemperature;
+
+    /**
      * @return int
      */
     public function getId()
@@ -227,6 +245,60 @@ class Part
     public function setUnNumber($unNumber)
     {
         $this->unNumber = $unNumber;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnNetWeight()
+    {
+        return $this->unNetWeight;
+    }
+
+    /**
+     * @param string $unNetWeight
+     * @return Part
+     */
+    public function setUnNetWeight($unNetWeight)
+    {
+        $this->unNetWeight = $unNetWeight;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMinTemperature()
+    {
+        return $this->minTemperature;
+    }
+
+    /**
+     * @param string $minTemperature
+     * @return Part
+     */
+    public function setMinTemperature($minTemperature)
+    {
+        $this->minTemperature = $minTemperature;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMaxTemperature()
+    {
+        return $this->maxTemperature;
+    }
+
+    /**
+     * @param string $maxTemperature
+     * @return Part
+     */
+    public function setMaxTemperature($maxTemperature)
+    {
+        $this->maxTemperature = $maxTemperature;
         return $this;
     }
 }

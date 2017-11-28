@@ -76,6 +76,20 @@ class Offer
     protected $currency;
 
     /**
+     * @var ShipmentType
+     * @ORM\ManyToOne(targetEntity="ShipmentType")
+     * @ORM\JoinColumn(name="tms_shipment_type_id",referencedColumnName="id")
+     */
+    protected $shipmentType;
+
+    /**
+     * @var ShipmentMode
+     * @ORM\ManyToOne(targetEntity="ShipmentMode")
+     * @ORM\JoinColumn(name="tms_shipment_mode_id",referencedColumnName="id")
+     */
+    protected $shipmentMode;
+
+    /**
      * @ORM\OneToMany(targetEntity="OfferCost",mappedBy="offer",cascade={"persist"},orphanRemoval=true)
      */
     protected $offerCosts;
@@ -251,6 +265,60 @@ class Offer
     /**
      * @return mixed
      */
+    public function getShipmentType()
+    {
+        return $this->shipmentType;
+    }
+
+    /**
+     * @param mixed $shipmentType
+     * @return Offer
+     */
+    public function setShipmentType($shipmentType)
+    {
+        $this->shipmentType = $shipmentType;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShipmentMode()
+    {
+        return $this->shipmentMode;
+    }
+
+    /**
+     * @param mixed $shipmentMode
+     * @return Offer
+     */
+    public function setShipmentMode($shipmentMode)
+    {
+        $this->shipmentMode = $shipmentMode;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param mixed $order
+     * @return Offer
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getOfferCosts()
     {
         return $this->offerCosts;
@@ -301,6 +369,8 @@ class Offer
         $this->offerWaypoints = $offerWaypoints;
         return $this;
     }
+
+
 
     /**
      * @param OfferCost $offerCost
