@@ -10,9 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="tms_package",indexes={
  *     @ORM\Index(name="idx_tms_package_tms_request_id", columns={"tms_request_id"}),
- *     @ORM\Index(name="idx_tms_package_packaging_type_id", columns={"packaging_type_id"}),
- *     @ORM\Index(name="idx_loading_tms_request_waypoint_id", columns={"loading_tms_request_waypoint_id"}),
- *     @ORM\Index(name="idx_unloading_tms_request_waypoint_id", columns={"unloading_tms_request_waypoint_id"})
+ *     @ORM\Index(name="idx_tms_package_packaging_type_id", columns={"packaging_type_id"})
  *     })
  */
 class Package
@@ -20,7 +18,7 @@ class Package
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */

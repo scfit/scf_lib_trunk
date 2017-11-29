@@ -21,7 +21,7 @@ class OfferPackage
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
@@ -29,10 +29,10 @@ class OfferPackage
 
     /**
      * @var Offer
-     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="offerVehicles")
-     * @ORM\JoinColumn(name="tms_offer_id",referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Package")
+     * @ORM\JoinColumn(name="tms_package_id",referencedColumnName="id")
      */
-    protected $offer;
+    protected $package;
 
     /**
      * @var OfferWaypoint﻿
@@ -59,18 +59,18 @@ class OfferPackage
     /**
      * @return Offer
      */
-    public function getOffer()
+    public function getPackage()
     {
-        return $this->offer;
+        return $this->package;
     }
 
     /**
-     * @param Offer $offer
-     * @return OfferVehicle
+     * @param Offer $package
+     * @return ShipmentPackage
      */
-    public function setOffer($offer)
+    public function setPackage($package)
     {
-        $this->offer = $offer;
+        $this->package = $package;
         return $this;
     }
 

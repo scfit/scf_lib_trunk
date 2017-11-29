@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class OfferWaypoint
  * @ORM\Entity
  * @ORM\Table(name="tms_offer_waypoint",uniqueConstraints={
- *     @ORM\UniqueConstraint(name="un_tms_offer_waypoint",columns={"tms_offer_id","tms_request_waypoint_id"})},
+ *     @ORM\UniqueConstraint(name="un_tms_offer_waypoint",columns={"tms_offer_id","waypoint_position"})},
  *     indexes={
  *     @ORM\Index(name="idx_tms_offer_waypoint_start_timestamp", columns={"start_timestamp"}),
  *     @ORM\Index(name="idx_tms_offer_waypoint_end_timestamp", columns={"end_timestamp"})
@@ -19,7 +19,7 @@ class OfferWaypoint
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
@@ -38,6 +38,12 @@ class OfferWaypoint
      * @ORM\JoinColumn(name="tms_waypoint_request_id",referencedColumnName="id")
      */
     protected $waypointAddress;
+
+    /**
+     * @var integer
+     * @ORM\Column(type="integer", name="waypoint_position", nullable=false)
+     */
+    protected $position;
 
     /**
      * @var \DateTime

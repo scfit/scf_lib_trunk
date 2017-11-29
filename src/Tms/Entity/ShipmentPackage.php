@@ -21,18 +21,18 @@ class ShipmentPackage
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
     protected $id;
 
     /**
-     * @var Shipment
-     * @ORM\ManyToOne(targetEntity="Shipment", inversedBy="shipmentVehicles")
-     * @ORM\JoinColumn(name="tms_shipment_id",referencedColumnName="id")
+     * @var Offer
+     * @ORM\ManyToOne(targetEntity="Package")
+     * @ORM\JoinColumn(name="tms_package_id",referencedColumnName="id")
      */
-    protected $shipment;
+    protected $package;
 
     /**
      * @var ShipmentWaypoint﻿
@@ -57,20 +57,20 @@ class ShipmentPackage
     }
 
     /**
-     * @return Shipment
+     * @return Offer
      */
-    public function getShipment()
+    public function getPackage()
     {
-        return $this->shipment;
+        return $this->package;
     }
 
     /**
-     * @param Shipment $shipment
-     * @return ShipmentVehicle
+     * @param Offer $package
+     * @return ShipmentPackage
      */
-    public function setShipment($shipment)
+    public function setPackage($package)
     {
-        $this->shipment = $shipment;
+        $this->package = $package;
         return $this;
     }
 

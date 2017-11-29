@@ -21,7 +21,7 @@ class Shipment
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
@@ -59,12 +59,6 @@ class Shipment
      */
     protected $operatorEntityAddress;
 
-    /**
-     * @var ShipmentType
-     * @ORM\ManyToOne(targetEntity="ShipmentType")
-     * @ORM\JoinColumn(name="tms_shipment_type_id",referencedColumnName="id")
-     */
-    protected $shipmentType;
 
     /**
      * @var ShipmentMode

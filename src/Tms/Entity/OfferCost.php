@@ -20,7 +20,7 @@ class OfferCost
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
@@ -55,7 +55,7 @@ class OfferCost
 
     /**
      * @var float
-     * @ORM\Column(type="decimal",name="amount", precision=30, scale=6, nullable=true)
+     * @ORM\Column(type="decimal",name="exchange_rate", precision=30, scale=6, nullable=true)
      */
     protected $exchangeRate;
 

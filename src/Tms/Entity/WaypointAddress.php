@@ -9,16 +9,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="tms_waypoint_address",uniqueConstraints={
  *     @ORM\UniqueConstraint(name="idx_tms_waypoint_address_address_hash",columns={"address_hash"})
- *     },indexes={
- *     @ORM\Index(name="idx_tms_waypoint_address_country_iso", columns={"country_iso"})
- *     })
+ *     },indexes={})
  */
 class WaypointAddress
 {
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */

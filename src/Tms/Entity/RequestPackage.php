@@ -21,18 +21,18 @@ class RequestPackage
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
     protected $id;
 
     /**
-     * @var Request
-     * @ORM\ManyToOne(targetEntity="Request", inversedBy="requestVehicles")
-     * @ORM\JoinColumn(name="tms_request_id",referencedColumnName="id")
+     * @var Offer
+     * @ORM\ManyToOne(targetEntity="Package")
+     * @ORM\JoinColumn(name="tms_package_id",referencedColumnName="id")
      */
-    protected $request;
+    protected $package;
 
     /**
      * @var RequestWaypoint﻿
@@ -57,20 +57,20 @@ class RequestPackage
     }
 
     /**
-     * @return Request
+     * @return Offer
      */
-    public function getRequest()
+    public function getPackage()
     {
-        return $this->request;
+        return $this->package;
     }
 
     /**
-     * @param Request $request
-     * @return RequestVehicle
+     * @param Offer $package
+     * @return ShipmentPackage
      */
-    public function setRequest($request)
+    public function setPackage($package)
     {
-        $this->request = $request;
+        $this->package = $package;
         return $this;
     }
 

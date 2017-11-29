@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Part
  * @ORM\Entity
  * @ORM\Table(name="tms_part",uniqueConstraints={
- *     @ORM\UniqueConstraint(name="un:",columns={"tms_request_id","part_number"})
+ *     @ORM\UniqueConstraint(name="un_tms_part_part_number",columns={"tms_request_id","part_number"})
  * })
  */
 class Part
@@ -22,7 +22,7 @@ class Part
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true, nullable=false, name="id")
      * @var integer
      */
@@ -47,6 +47,12 @@ class Part
      * @ORM\Column(type="integer",name="quantity", nullable=false)
      */
     protected $quantity;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", name="part_number", nullable=false)
+     */
+    protected $partNumber;
 
     /**
      * @var integer
@@ -155,6 +161,24 @@ class Part
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPartNumber()
+    {
+        return $this->partNumber;
+    }
+
+    /**
+     * @param string $partNumber
+     * @return Part
+     */
+    public function setPartNumber($partNumber)
+    {
+        $this->partNumber = $partNumber;
         return $this;
     }
 
