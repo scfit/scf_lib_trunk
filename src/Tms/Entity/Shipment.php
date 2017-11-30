@@ -59,6 +59,12 @@ class Shipment
      */
     protected $operatorEntityAddress;
 
+    /**
+     * @var ShipmentType
+     * @ORM\ManyToOne(targetEntity="ShipmentType")
+     * @ORM\JoinColumn(name="tms_shipment_type_id",referencedColumnName="id")
+     */
+    protected $shipmentType;
 
     /**
      * @var ShipmentMode
