@@ -30,7 +30,7 @@ class WaypointAddress
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="postocode", nullable=true)
+     * @ORM\Column(type="string", name="postcode", nullable=true)
      */
     protected $postcode;
 
