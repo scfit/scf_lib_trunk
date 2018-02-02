@@ -204,6 +204,10 @@ class DataSource {
             $requestParams['skip'] = intval($requestParams['skip']);
             $requestParams['take'] = intval($requestParams['take']);
 
+            if( $requestParams['take'] > 50000 ) {
+                $requestParams['take'] = 50000;
+            }
+
             $pattern = '/LIMIT \d* OFFSET \d/i';
             $replace = 'LIMIT :take OFFSET :skip';
             $replacement = preg_replace($pattern, $replace, $sql, 1);
