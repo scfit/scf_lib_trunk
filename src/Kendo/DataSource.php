@@ -201,6 +201,9 @@ class DataSource {
         }
 
         if (isset($requestParams['skip']) && isset($requestParams['take'])) {
+            $requestParams['skip'] = intval($requestParams['skip']);
+            $requestParams['take'] = intval($requestParams['take']);
+
             $pattern = '/LIMIT \d* OFFSET \d/i';
             $replace = 'LIMIT :take OFFSET :skip';
             $replacement = preg_replace($pattern, $replace, $sql, 1);
