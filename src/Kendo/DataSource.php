@@ -175,14 +175,16 @@ class DataSource {
      * @param array|null $requestParams
      * @return array
      */
-    public function getData(array $requestParams = null) {
+    public function getData($requestParams = null) {
         $sql = $this->getSql();
 
-        if (strpos(strtolower($sql), 'where') === false) {
-            $sql.= ' WHERE 1=1 :where';
+        if (strpos(strtolower($sql), ':where') === false) {
+            if (strpos(strtolower($sql), 'where') === false) {
+                $sql.= ' WHERE 1=1 :where';
+            }
         }
-        if (isset($requestParams['filter'])) {
-            $where = ' AND ' . $this->filter($requestParams['filter']) . ' ';
+        if ( empty($requestParams['filter']) === false && isset($requestParams['filter']['filters']) && ($w = $this->filter($requestParams['filter'])) !== null ) {
+            $where = ' AND ' .$w. ' ';
             $sql = str_replace(':where', $where, $sql);
         } else {
             $sql = str_replace(':where', '', $sql);
@@ -190,37 +192,31 @@ class DataSource {
 
         $sort = $this->mergeSortDescriptors($requestParams);
         if (count($sort) > 0) {
-            $pattern = '/ORDER BY [a-z\.\_\-\(\)]* [desc|asc]+/i';
+            $pattern = '/ORDER BY [a-z\.\_\-\(\)]* [desc|asc|DESC|ASC]+/i';
             $replace = $this->sort($sort);
+            
             $replacement = preg_replace($pattern, $replace, $sql, 1);
-            if ($replacement === null) {
-                $sql .= $replace;
+            
+            if ($replacement === null || $replacement === $sql ) {
+                $sql .= ' '.$replace;
             } else {
                 $sql = $replacement;
             }
         }
-
+        
         if (isset($requestParams['skip']) && isset($requestParams['take'])) {
-            $requestParams['skip'] = intval($requestParams['skip']);
-            $requestParams['take'] = intval($requestParams['take']);
-
-            if( $requestParams['take'] > 50000 ) {
-                $requestParams['take'] = 50000;
-            }
-
             $pattern = '/LIMIT \d* OFFSET \d/i';
             $replace = 'LIMIT :take OFFSET :skip';
             $replacement = preg_replace($pattern, $replace, $sql, 1);
-            if ($replacement === null) {
-                $sql .= $replace;
+            if ($replacement === null  || $replacement === $sql ) {
+                $sql .= ' '.$replace;
             } else {
                 $sql = $replacement;
             }
         }
-        //echo $sql; exit;
 
         $statement = $this->db->prepare($sql);
-        if (isset($requestParams['filter'])) {
+        if (empty($requestParams['filter']) === false  && isset($requestParams['filter']['filters']) ) {
             $this->bindFilterValues($statement, $requestParams['filter']);
         }
 
@@ -228,6 +224,9 @@ class DataSource {
             $statement->bindValue(':skip', (int) $requestParams['skip'], PDO::PARAM_INT);
             $statement->bindValue(':take', (int) $requestParams['take'], PDO::PARAM_INT);
         }
+
+        //echo "\nDATA: ".$sql; var_dump($requestParams);
+
         $statement->execute();
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -264,6 +263,19 @@ class DataSource {
      * @return array
      */
     public function getResult(array $requestParams) {
+        /* @var $requestParams \Zend\Stdlib\Parameters */
+        if ( isset($requestParams['skip']) === false ) {
+            $requestParams['skip'] = 0;
+        }
+        if ( isset($requestParams['take']) === false ) {
+            $requestParams['take'] = 25;
+        }
+        if( isset($requestParams['sort']) === false ) {
+            $requestParams['sort'] = array(array('field'=>'id','dir'=>'desc'));
+        } else if ($requestParams['sort'] === null){
+            unset($requestParams['sort']);
+        }
+        
         return array(
             'data' => $this->getData($requestParams),
             'total' => $this->getTotal($requestParams)
