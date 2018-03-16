@@ -270,7 +270,7 @@ class DataSource {
         if ( isset($requestParams['take']) === false ) {
             $requestParams['take'] = 25;
         }
-        if( isset($requestParams['sort']) === false ) {
+        if( isset($requestParams['sort']) === false && strpos($this->getSql(), 'ORDER BY') === false) {
             $requestParams['sort'] = array(array('field'=>'id','dir'=>'desc'));
         } else if ($requestParams['sort'] === null){
             unset($requestParams['sort']);
