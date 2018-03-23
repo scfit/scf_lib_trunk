@@ -185,7 +185,7 @@ class DataSource {
         }
 
         if (empty($requestParams['filter']) === false && isset($requestParams['filter']['filters']) === false) {
-            $requestParams['filter']['filters'] = $requestParams['filter'];
+            $requestParams['filter']['filters'] = [$requestParams['filter']];
         }
 
         if ( empty($requestParams['filter']) === false && isset($requestParams['filter']['filters']) && ($w = $this->filter($requestParams['filter'])) !== null ) {
