@@ -38,7 +38,8 @@ class DataSource {
         'gte' => '>=',
         'lt' => '<',
         'lte' => '<=',
-        'neq' => '!='
+        'neq' => '!=',
+        'between' => 'BETWEEN'
     );
     protected $aggregateFunctions = array(
         'average' => 'AVG',
