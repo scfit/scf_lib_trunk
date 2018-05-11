@@ -39,7 +39,8 @@ class DataSource {
         'gte' => '>=',
         'lt' => '<',
         'lte' => '<=',
-        'neq' => '!='
+        'neq' => '!=',
+        'between' => 'BETWEEN'
     );
     protected $aggregateFunctions = array(
         'average' => 'AVG',
@@ -184,6 +185,11 @@ class DataSource {
                 $sql.= ' WHERE 1=1 :where';
             }
         }
+
+        if (empty($requestParams['filter']) === false && isset($requestParams['filter']['filters']) === false) {
+            $requestParams['filter']['filters'] = [$requestParams['filter']];
+        }
+
         if ( empty($requestParams['filter']) === false && isset($requestParams['filter']['filters']) && ($w = $this->filter($requestParams['filter'])) !== null ) {
             $where = ' AND ' .$w. ' ';
             $sql = str_replace(':where', $where, $sql);
