@@ -25,6 +25,7 @@ class DataSource {
     );
     protected $arrayOperators = array(
         'eq' => 'IN',
+        'eq_all' => 'IN ALL',
         'neq' => 'NOT IN'
     );
     protected $dbArrayOperators = array(
@@ -369,6 +370,8 @@ class DataSource {
                 return "$alias $operator";
             } else if ($operator === 'IN') {
                 return "$alias = ANY($value)";
+            } else if ($operator === 'IN ALL') {
+                return "$alias = ALL($value)";
             } else if ($operator === 'NOT IN') {
                 return "NOT $alias = ANY($value)";
             } else if ($operator === 'CUSTOM') {
